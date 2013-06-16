@@ -56,7 +56,7 @@ void PlayList::getNextMusic(){
             delete info;
         }
     }
-    if(this->play_list.empty()){
+    if(this->play_list.count()<=1){
         this->loadNextList();
     }
 }
@@ -79,6 +79,7 @@ void PlayList::changeFMFinished(){
     while(iterator.hasNext()){
         PlayInfo* info=iterator.next();
         QObject::connect(info,SIGNAL(loaded(PlayInfo*)),this,SLOT(playLoaded(PlayInfo*)));
+        QObject::connect(info,SIGNAL(errored(PlayInfo*)),this,SLOT(playErrored(PlayInfo*)));
         info->load(this->network_manager);
     }
 }
@@ -128,6 +129,14 @@ void PlayList::playLoaded(PlayInfo *info){
     if(this->playing==NULL){
         this->playing=info;
         emit this->loaded();
+    }
+}
+
+void PlayList::playErrored(PlayInfo *info){
+    this->play_list.removeOne(info);
+    delete info;
+    if(this->play_list.count()<=1){
+        this->loadNextList();
     }
 }
 

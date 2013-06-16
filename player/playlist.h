@@ -43,6 +43,7 @@ signals:
 
 private slots:
     void playLoaded(PlayInfo* info);
+    void playErrored(PlayInfo* info);
     void loadNextListFinished();
     void changeFMFinished();
 };

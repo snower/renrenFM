@@ -45,6 +45,7 @@ void PlayInfo::init(){
 void PlayInfo::loadMusic(){
     if(this->load_music_count>PLAY_RELOAD_COUNT){
         this->error=true;
+        emit this->errored(this);
         return;
     }
     if(!QFile::exists("cache\\"+this->src_name)){
@@ -60,6 +61,7 @@ void PlayInfo::loadMusic(){
 void PlayInfo::loadAlbum(){
     if(this->load_album_count>PLAY_RELOAD_COUNT){
         this->error=true;
+        emit this->errored(this);
         return;
     }
     if(!QFile::exists("cache\\"+this->albumSrc_name)){

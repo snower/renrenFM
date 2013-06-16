@@ -58,6 +58,7 @@ private:
 
 signals:
     void loaded(PlayInfo* info);
+    void errored(PlayInfo* info);
 
 private slots:
     void musicLoaded();
